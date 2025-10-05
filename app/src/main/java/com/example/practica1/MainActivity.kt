@@ -64,6 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         vmCurrentWeather.weatherList.observe(this) { list ->
             adapter.updateList(list)
+
         }
 
         vmCurrentWeather.error.observe(this) { errorMessage ->

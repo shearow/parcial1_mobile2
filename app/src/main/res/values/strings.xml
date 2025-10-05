@@ -2,6 +2,7 @@
     <string name="app_name">practica1</string>
     <string name="storm">STORM</string>
     <string name="logo_storm">Logo Storm</string>
+    <string name="weather_app">Weather App</string>
     <string name="insert_city">Insert City</string>
     <string name="search">Search</string>
     <string name="error_loading_favorite_cities">Error loading favorite cities</string>

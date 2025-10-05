@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@drawable/bg5"
+    android:background="@android:color/transparent"
     android:scaleType="centerCrop">
 
     <ImageButton
@@ -17,7 +17,7 @@
         android:contentDescription="back button"
         android:scaleType="centerCrop"
         android:layout_marginTop="8dp"
-        app:tint="@color/white" />
+        android:backgroundTint="#80000000" />
 
     <LinearLayout
         android:layout_width="match_parent"

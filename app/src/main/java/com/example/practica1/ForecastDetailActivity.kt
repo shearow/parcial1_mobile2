@@ -3,6 +3,7 @@ package com.example.practica1
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -104,9 +105,40 @@ class ForecastDetailActivity : AppCompatActivity() {
         binding.tvPrecipitationPorc.text = "${day.pop}% / ${String.format("%.2f", day.precip)}mm"
         binding.tvHumidity.text = "Humidity: ${day.rh}%"
         binding.tvWind.text = "Wind: ${day.wind_spd} m/s"
-
+        updateBackgroundForWeather(day.weather.icon)
 
         val iconUrl = "https://www.weatherbit.io/static/img/icons/${day.weather.icon}.png"
         Picasso.get().load(iconUrl).into(binding.imgMainWeatherIcon)
+
     }
+
+    private fun updateBackgroundForWeather(weatherIcon: String) {
+        val backgroundRes = when (weatherIcon) {
+
+            "c01d", "c01n" -> R.drawable.bg_clear
+
+
+            "c02d", "c02n" -> R.drawable.bg_clear
+
+
+            "c03d", "c03n", "c04d", "c04n" -> R.drawable.bg_cloudy
+
+
+            "t01d", "t01n", "t02d", "t02n", "t03d", "t03n",
+            "t04d", "t04n", "t05d", "t05n" -> R.drawable.bg_storm
+
+
+            "d01d", "d01n", "d02d", "d02n", "d03d", "d03n",
+            "r01d", "r01n", "r02d", "r02n", "r03d", "r03n",
+            "r04d", "r04n", "r05d", "r05n", "r06d", "r06n",
+            "f01d", "f01n" -> R.drawable.bg_cloudy
+
+
+            "s01d", "s01n", "s02d", "s02n", "s03d", "s03n",
+            "s04d", "s04n", "s05d", "s05n", "s06d", "s06n" -> R.drawable.bg_snow
+            else -> R.drawable.bg_clear
+        }
+        binding.root.setBackgroundResource(backgroundRes)
+    }
+
 }
