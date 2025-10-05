@@ -23,4 +23,8 @@ class FavoriteCitiesRepository(context: Context) {
         currentSet.remove(city)
         prefs.edit().putStringSet(key, currentSet).apply()
     }
+
+    fun isFavorite(city: String): Boolean {
+        return getFavorites().contains(city)
+    }
 }

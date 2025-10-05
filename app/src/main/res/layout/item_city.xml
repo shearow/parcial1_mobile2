@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -23,6 +22,7 @@
             android:id="@+id/imgWeatherBackground"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="background weather"
             android:scaleType="centerCrop"
             android:alpha="0.3" />
 
@@ -67,15 +67,16 @@
                     android:text="Soleado"
                     android:textColor="@android:color/black"
                     android:textSize="20sp"
-                    android:paddingStart="30dp" />
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"/>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <ImageButton
         android:id="@+id/btnDeleteCity"
-        android:layout_width="20sp"
-        android:layout_height="20sp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="@string/delete"
         android:src="@drawable/delete_icon"

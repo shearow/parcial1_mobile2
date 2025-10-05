@@ -76,6 +76,16 @@
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
+        <ProgressBar
+            android:id="@+id/searchCityProgressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="64dp"
+            android:maxHeight="64dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminateTint="@color/white"/>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -108,13 +118,17 @@
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="64dp"
+                android:maxHeight="64dp"
                 android:layout_gravity="center"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:indeterminateTint="@color/white"/>
 
             <TextView
                 android:id="@+id/tvErrorFavoriteCities"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="25sp"
                 android:layout_marginTop="8dp"
                 android:text="@string/error_loading_favorite_cities"
                 android:textColor="#D91616"
@@ -126,6 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                android:visibility="gone"
                 tools:listitem="@layout/item_city" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
