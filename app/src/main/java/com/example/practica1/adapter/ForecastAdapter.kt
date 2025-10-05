@@ -60,7 +60,7 @@ class ForecastAdapter(
 
     inner class ViewHolder(val binding: ItemForecastDayBinding) : RecyclerView.ViewHolder(binding.root)
 
-    fun updateList(newList: List<DailyForecast>) {
+    fun updateData(newList: List<DailyForecast>) {
         list = newList
         selectedPosition = 0
         notifyDataSetChanged()
