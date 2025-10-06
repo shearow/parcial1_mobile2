@@ -135,27 +135,6 @@
                     android:text="@string/tomi"
                     android:textAppearance="?attr/textAppearanceBodyMedium" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:text="@string/tit_aviso_legal"
-                        android:textAppearance="?attr/textAppearanceTitleMedium"
-                        android:textColor="#116DD6"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/aviso_legal"
-                        android:textAppearance="?attr/textAppearanceBodyMedium" />
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -163,15 +142,6 @@
                     android:layout_marginBottom="4dp"
                     android:text="@string/nico"
                     android:textAppearance="?attr/textAppearanceBodyMedium" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/sugerencias_o_recomendaciones"
-                    android:textAppearance="?attr/textAppearanceTitleMedium"
-                    android:textColor="#116DD6"
-                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -187,6 +157,28 @@
             app:cardCornerRadius="16dp"
             app:cardElevation="4dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/tit_aviso_legal"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="#116DD6"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/aviso_legal"
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+            </LinearLayout>
+
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
@@ -201,6 +193,15 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/sugerencias_o_recomendaciones"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="#116DD6"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="match_parent"
