@@ -1,85 +1,65 @@
 package com.example.practica1.ui
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.practica1.data.DailyForecast
 import com.example.practica1.data.DailyForecastResponse
 import com.example.practica1.repository.FavoriteCitiesRepository
 
-sealed class ForecastUiState {
-    object Loading : ForecastUiState()
-    data class Success(
-        val forecastList: List<DailyForecast>,
-        val mainDay: DailyForecast,
-        val cityName: String,
-        val countryCode: String,
-        val isFavorite: Boolean
-    ) : ForecastUiState()
+class ForecastDetailViewModel(application: Application) : AndroidViewModel(application) {
 
-    data class Error(val message: String) : ForecastUiState()
-}
+    private val favoriteRepo = FavoriteCitiesRepository(application)
 
-class ForecastDetailViewModel(
-    private val favoriteRepo: FavoriteCitiesRepository
-) : ViewModel() {
+    private val _forecastList = MutableLiveData<List<DailyForecast>>()
+    private val _mainDay = MutableLiveData<DailyForecast>()
+    private val _cityName = MutableLiveData<String>()
+    private val _countryCode = MutableLiveData<String>()
+    private val _isFavorite = MutableLiveData<Boolean>()
+    private val _error = MutableLiveData<String?>()
 
-    private val _uiState = MutableLiveData<ForecastUiState>()
-    val uiState: LiveData<ForecastUiState> = _uiState
+    val forecastList: LiveData<List<DailyForecast>> = _forecastList
+    val mainDay: LiveData<DailyForecast> = _mainDay
+    val cityName: LiveData<String> = _cityName
+    val countryCode: LiveData<String> = _countryCode
+    val isFavorite: LiveData<Boolean> = _isFavorite
+    val error: LiveData<String?> = _error
 
     private var forecastResponse: DailyForecastResponse? = null
-    private var forecastList: List<DailyForecast> = emptyList()
-    private var isFavorite = false
+    private var currentList: List<DailyForecast> = emptyList()
 
     fun loadForecast(response: DailyForecastResponse?) {
         if (response == null) {
-            _uiState.value = ForecastUiState.Error("No forecast data received")
+            _error.value = "No forecast data received"
             return
         }
 
         forecastResponse = response
-        forecastList = response.data
+        currentList = response.data
 
-        val cityName = response.city_name
-        isFavorite = favoriteRepo.isFavorite(cityName)
-
-        _uiState.value = ForecastUiState.Success(
-            forecastList = forecastList,
-            mainDay = forecastList.first(),
-            cityName = cityName,
-            countryCode = response.country_code,
-            isFavorite = isFavorite
-        )
+        _cityName.value = response.city_name
+        _countryCode.value = response.country_code
+        _forecastList.value = currentList
+        _mainDay.value = currentList.firstOrNull()
+        _isFavorite.value = favoriteRepo.isFavorite(response.city_name)
     }
 
     fun selectDay(position: Int) {
-        forecastList.getOrNull(position)?.let { day ->
-            val city = forecastResponse?.city_name ?: ""
-            val country = forecastResponse?.country_code ?: ""
-
-            _uiState.value = ForecastUiState.Success(
-                forecastList = forecastList,
-                mainDay = day,
-                cityName = city,
-                countryCode = country,
-                isFavorite = isFavorite
-            )
+        currentList.getOrNull(position)?.let {
+            _mainDay.value = it
         }
     }
 
     fun toggleFavorite() {
         val city = forecastResponse?.city_name ?: return
+        val current = _isFavorite.value ?: false
 
-        if (isFavorite) {
+        if (current) {
             favoriteRepo.removeFavorite(city)
-            isFavorite = false
         } else {
             favoriteRepo.addFavorite(city)
-            isFavorite = true
         }
-
-        _uiState.value = (_uiState.value as? ForecastUiState.Success)?.copy(
-            isFavorite = isFavorite
-        )
+        _isFavorite.value = !current
     }
 }

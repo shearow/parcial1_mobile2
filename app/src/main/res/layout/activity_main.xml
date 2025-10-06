@@ -15,15 +15,25 @@
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/weather_app"
             android:layout_gravity="center"
             android:paddingStart="4dp"
+            android:layout_weight="1"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"
             tools:ignore="RtlSymmetry" />
+
+        <ImageButton
+            android:id="@+id/btnAbout"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/about"
+            android:scaleType="centerInside"
+            android:src="@drawable/about" />
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView

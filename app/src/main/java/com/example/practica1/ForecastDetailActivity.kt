@@ -8,26 +8,19 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.practica1.adapter.ForecastAdapter
+import com.example.practica1.data.DailyForecast
 import com.example.practica1.data.DailyForecastResponse
 import com.example.practica1.databinding.ActivityForecastDetailBinding
-import com.example.practica1.repository.FavoriteCitiesRepository
 import com.example.practica1.ui.ForecastDetailViewModel
-import com.example.practica1.ui.ForecastUiState
+import com.example.practica1.utils.getDayOfWeek
 import com.squareup.picasso.Picasso
 
 class ForecastDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityForecastDetailBinding
     private lateinit var adapter: ForecastAdapter
+    private val viewModel: ForecastDetailViewModel by viewModels()
 
-    private val viewModel: ForecastDetailViewModel by viewModels {
-        val repo = FavoriteCitiesRepository(this)
-        object : androidx.lifecycle.ViewModelProvider.Factory {
-            override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
-                return ForecastDetailViewModel(repo) as T
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +33,7 @@ class ForecastDetailActivity : AppCompatActivity() {
         val forecastData = intent.getSerializableExtra("forecastData") as? DailyForecastResponse
         viewModel.loadForecast(forecastData)
 
-        viewModel.uiState.observe(this) { state ->
-            when (state) {
-                is ForecastUiState.Loading -> { /* opcional: mostrar ProgressBar */ }
-                is ForecastUiState.Error -> { Toast.makeText(this, state.message, Toast.LENGTH_SHORT).show() }
-                is ForecastUiState.Success -> { updateUI(state) }
-            }
-        }
+        setupObservers()
     }
 
     private fun setupRecycler() {
@@ -54,7 +41,8 @@ class ForecastDetailActivity : AppCompatActivity() {
             viewModel.selectDay(position)
         }
         binding.rvForecastDays.adapter = adapter
-        binding.rvForecastDays.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvForecastDays.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun setupListeners() {
@@ -62,20 +50,41 @@ class ForecastDetailActivity : AppCompatActivity() {
         binding.btnFavorite.setOnClickListener { viewModel.toggleFavorite() }
     }
 
-    private fun updateUI(state: ForecastUiState.Success) {
-        adapter.updateData(state.forecastList)
+    private fun setupObservers() {
+        viewModel.forecastList.observe(this) { list ->
+            adapter.updateData(list)
+        }
 
-        val day = state.mainDay
-        binding.tvCityAndCountry.text = "${state.cityName}, ${state.countryCode}"
+        viewModel.mainDay.observe(this) { day ->
+            updateMainDayUI(day)
+        }
+
+        viewModel.cityName.observe(this) { city ->
+            val country = viewModel.countryCode.value ?: ""
+            binding.tvCityAndCountry.text = "$city, $country"
+        }
+
+        viewModel.isFavorite.observe(this) { isFav ->
+            updateFavoriteIcon(isFav)
+        }
+
+        viewModel.error.observe(this) { msg ->
+            msg?.let {
+                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun updateMainDayUI(day: DailyForecast) {
         binding.tvMainDayName.text = getDayOfWeek(day.valid_date)
         binding.tvMainWeatherDescription.text = day.weather.description
         binding.tvMainTempMax.text = "${day.max_temp.toInt()}°C"
         binding.tvMainTempMin.text = "${day.min_temp.toInt()}°C"
-        binding.tvPrecipitationPorc.text = "${day.pop}% / ${String.format("%.2f", day.precip)}mm"
+        binding.tvPrecipitationPorc.text =
+            "${day.pop}% / ${String.format("%.2f", day.precip)}mm"
         binding.tvHumidity.text = "Humidity: ${day.rh}%"
         binding.tvWind.text = "Wind: ${day.wind_spd} m/s"
 
-        updateFavoriteIcon(state.isFavorite)
         updateBackgroundForWeather(day.weather.icon)
 
         val iconUrl = "https://www.weatherbit.io/static/img/icons/${day.weather.icon}.png"
@@ -83,7 +92,8 @@ class ForecastDetailActivity : AppCompatActivity() {
     }
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {
-        binding.btnFavorite.imageTintList = ColorStateList.valueOf(if (isFavorite) Color.RED else Color.WHITE)
+        binding.btnFavorite.imageTintList =
+            ColorStateList.valueOf(if (isFavorite) Color.RED else Color.WHITE)
     }
 
     private fun updateBackgroundForWeather(weatherIcon: String) {

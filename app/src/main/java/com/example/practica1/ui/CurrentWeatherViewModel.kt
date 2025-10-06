@@ -31,7 +31,7 @@ class CurrentWeatherViewModel(application: Application) : AndroidViewModel(appli
 
         val favoriteCities = favoriteRepo.getFavorites()
         if (favoriteCities.isEmpty()) {
-            _error.value = "No hay ciudades favoritas guardadas"
+            _error.value = "You don’t have any favorite cities yet"
             _isLoading.value = false
             return
         }
@@ -54,7 +54,7 @@ class CurrentWeatherViewModel(application: Application) : AndroidViewModel(appli
                 if (result.isNotEmpty()) {
                     _weatherList.value = result
                 } else {
-                    _error.value = "No se pudieron cargar los datos del clima"
+                    _error.value = "Weather data could not be loaded"
                 }
             } catch (e: Exception) {
                 _error.value = "Error: ${e.message}"

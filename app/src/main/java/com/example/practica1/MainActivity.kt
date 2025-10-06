@@ -58,6 +58,13 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, "Enter a city", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.btnAbout.setOnClickListener {
+            binding.btnAbout.setOnClickListener {
+                val intent = Intent(this, AboutActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun setupObservers() {

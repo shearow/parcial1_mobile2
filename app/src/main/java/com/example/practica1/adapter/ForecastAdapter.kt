@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.practica1.data.DailyForecast
 import com.example.practica1.databinding.ItemForecastDayBinding
-import com.example.practica1.getDayOfWeek
+import com.example.practica1.utils.getDayOfWeek
 import com.squareup.picasso.Picasso
 
 class ForecastAdapter(
@@ -41,7 +41,7 @@ class ForecastAdapter(
             holder.binding.tvTempMin.setTextColor(0xFFFFFFFF.toInt())
             holder.binding.tvTempMax.setTextColor(0xFFFFFFFF.toInt())
         } else {
-            holder.binding.root.setCardBackgroundColor(0xFFFFFFFF.toInt()) // blanco
+            holder.binding.root.setCardBackgroundColor(0xFFFFFFFF.toInt())
             holder.binding.tvDayName.setTextColor(0xFF000000.toInt())
             holder.binding.tvTempMin.setTextColor(0xFF000000.toInt())
             holder.binding.tvTempMax.setTextColor(0xFF000000.toInt())
