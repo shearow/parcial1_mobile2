@@ -11,8 +11,8 @@ La aplicación consume los endpoints públicos de la API Weatherbit mediante el 
 
 Se utilizan los siguientes endpoints con el método **GET**:
 
-- [https://api.weatherbit.io/v2.0/current](https://api.weatherbit.io/v2.0/current)  
-- [https://api.weatherbit.io/v2.0/forecast/daily](https://api.weatherbit.io/v2.0/forecast/daily)
+- [https://api.weatherbit.io/v2.0/current]
+- [https://api.weatherbit.io/v2.0/forecast/daily]
 
 La **API_KEY** y la **BASE_URL** se encuentran definidas en el archivo `config.kt`.
 
