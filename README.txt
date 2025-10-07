@@ -1,43 +1,43 @@
 # Parcial N°1 - Programación de Aplicaciones Móviles II
 
 ## App
-Esta aplicación se basa en consumir los servicios de una **API de clima llamada Weatherbit**, y dentro de la misma ofrecerle al usuario los diferentes climas de las ciudades que desee observar, con información detallada en distintas secciones.  
-
-Además, permite **guardar y eliminar ciudades favoritas**.
+Esta aplicación se basa en consumir los servicios de una **API de clima llamada Weatherbit**, ofreciendo al usuario información sobre el clima actual y los pronósticos de las ciudades que desee observar.  
+Además, permite **guardar y eliminar ciudades favoritas** para un acceso más rápido.
 
 ---
 
 ## Funcionamiento
-La aplicación consume los endpoints públicos de la API **Weatherbit** mediante el cliente **Retrofit**, utilizando **GsonConverter** para transformar las respuestas JSON en objetos Kotlin.  
+La aplicación consume los endpoints públicos de la API Weatherbit mediante el cliente **Retrofit**, utilizando **GsonConverter** para transformar las respuestas JSON en objetos Kotlin.  
 
 Se utilizan los siguientes endpoints con el método **GET**:
-- [`https://api.weatherbit.io/v2.0/current`](https://api.weatherbit.io/v2.0/current)
-- [`https://api.weatherbit.io/v2.0/forecast/daily`](https://api.weatherbit.io/v2.0/forecast/daily)
+
+- [https://api.weatherbit.io/v2.0/current](https://api.weatherbit.io/v2.0/current)  
+- [https://api.weatherbit.io/v2.0/forecast/daily](https://api.weatherbit.io/v2.0/forecast/daily)
 
 La **API_KEY** y la **BASE_URL** se encuentran definidas en el archivo `config.kt`.
 
 ---
 
-### 🔹 Endpoint `/current`
+### Endpoint `/current`
 **¿Qué proporciona este endpoint?**  
-Devuelve el **clima actual** de la ciudad ingresada por el usuario.  
+Devuelve el clima actual de la ciudad ingresada por el usuario.  
 
 **Parámetros utilizados:**
 - `city`: nombre de la ciudad a buscar  
 - `key`: API_KEY privada  
 
 **Datos que se utilizan en la app:**
-- `city_name` → nombre de la ciudad  
-- `country_code` → código del país  
-- `temp` → temperatura actual  
-- `weather.description` → descripción del clima (nublado, lluvioso, soleado, etc.)  
-- `weather.icon` → ícono ilustrativo basado en el estado del clima  
+- `city_name`: nombre de la ciudad  
+- `country_code`: código del país  
+- `temp`: temperatura actual  
+- `weather.description`: descripción del clima (nublado, lluvioso, soleado, etc.)  
+- `weather.icon`: ícono ilustrativo basado en el estado del clima  
 
 ---
 
-### 🔹 Endpoint `/forecast/daily`
+### Endpoint `/forecast/daily`
 **¿Qué proporciona este endpoint?**  
-Devuelve el **pronóstico extendido de los próximos días** con información más detallada sobre el clima.  
+Devuelve el pronóstico extendido de los próximos días con información más detallada sobre el clima.  
 
 **Parámetros utilizados:**
 - `city`: nombre de la ciudad a buscar  
@@ -45,9 +45,9 @@ Devuelve el **pronóstico extendido de los próximos días** con información m�
 - `key`: API_KEY privada  
 
 **Datos que se utilizan en la app:**
-- `city_name` → nombre de la ciudad  
-- `country_code` → código del país  
-- `data` → lista con la información del pronóstico de cada día, que incluye:  
+- `city_name`: nombre de la ciudad  
+- `country_code`: código del país  
+- `data`: lista con la información del pronóstico de cada día, que incluye:
   - `valid_date`: fecha del pronóstico  
   - `max_temp`: temperatura máxima  
   - `min_temp`: temperatura mínima  
